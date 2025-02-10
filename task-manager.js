@@ -16,11 +16,16 @@ while (app_running) {
     let option = Number(prompt(choice));
     switch (option) {
         case 1:
+            if(basket.length === 0) {
+                alert("Your basket is currently empty.");
+                break;
+            }
+
             output = "Your basket currently contains:\n"
             for (let i = 0; i < basket.length; i++) {
                 let fruit = basket[i];
 
-                output += `-${fruit}\n`;
+                output += `${i + 1}. ${fruit}\n`;
             }
             alert(output);
             break;
@@ -39,15 +44,23 @@ while (app_running) {
             break;
 
         case 3:
-            let removeFruit = prompt("Please enter what fruit you would like to remove from the basket.");
-            removeFruit = removeFruit.trim().toLowerCase();
-            let index = basket.indexOf(removeFruit);
-            if (index !== -1) {
-                basket.splice(index, 1);
-                alert(`${removeFruit} was successfully removed from the basket.`);
+            if(basket.length === 0) {
+                alert("Your basket is currently empty. There are no fruits to remove.");
+                break;
+            }
+            
+            output = "Select a fruit to remove:\n";
+            for(let i = 0; i < basket.length; i++) {
+                output += `${i + 1}. ${basket[i]}\n`;
+            }
+            let removeFruit = Number(prompt(`${output}\n Please enter the number of the fruit you would like to remove from the basket.`)) - 1;
+            
+            if (removeFruit >= 0 && removeFruit < basket.length) {
+                let remove = basket.splice(removeFruit, 1);
+                alert(`${remove} was successfully removed from the basket.`);
             }
             else {
-                alert("That fruit is not currently in your basket!")
+                alert("Invalid number. Please enter an existing number from the list.")
             }
             break;
 
