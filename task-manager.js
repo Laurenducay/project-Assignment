@@ -5,7 +5,7 @@ const basket = ["apple", "mango", "orange"];
 const validFruits = [
     "apple", "orange", "mango", "grapes", "pear", "peach", "kiwi", "pineapple",
     "plum", "cherries", "apricots", "blackberries", "blueberries", "cantaloupe", "dragon fruit", "grape fruit", "guava",
-    "lychee", "raspberries", "strawberries", "watermelon"
+    "lychee", "raspberries", "strawberries", "watermelon", "banana", "tomato"
 ];
 
 let output = "";
