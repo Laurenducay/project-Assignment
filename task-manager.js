@@ -5,10 +5,32 @@ const basket = ["apple", "mango", "orange"];
 const validFruits = [
     "apple", "orange", "mango", "grapes", "pear", "peach", "kiwi", "pineapple",
     "plum", "cherries", "apricots", "blackberries", "blueberries", "cantaloupe", "dragon fruit", "grape fruit", "guava",
-    "lychee", "raspberries", "strawberries", "watermelon", "banana", "tomato"
+    "lychee", "raspberries", "strawberries", "watermelon", "banana", "tomato", "coconut"
 ];
 
 let output = "";
+
+document.addEventListener("DOMContentLoaded", () => {
+    const fruitEmoji = [
+"🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍑", "🍐", "🍏", "🍎", "🥭", "🍍", "🍒", "🍓", "🫐", "🥝", "🍅", "🥥"
+];
+    
+function generateFruit() {
+    const fruit = document.createElement("div");
+    fruit.classList.add("fruit");
+    fruit.innerHTML = fruitEmoji[Math.floor(Math.random() * fruitEmoji.length)];
+    document.body.appendChild(fruit);
+
+    fruit.style.left = Math.random() * window.innerWidth + "px";
+    fruit.style.animationDuration = Math.random() * 1 + 3 + "s";
+
+    setTimeout(() => {
+        fruit.remove();
+    }, 6000);
+}
+
+setInterval(generateFruit, 500);
+});
 
 document.getElementById("Menu").addEventListener('click', () => {
     let app_running = true;
