@@ -32,68 +32,85 @@ function generateFruit() {
 setInterval(generateFruit, 500);
 });
 
-document.getElementById("Menu").addEventListener('click', () => {
-    let app_running = true;
+//viewTasks()
+function viewBasket() {
+    if(basket.length === 0) {
+        alert("Your basket is currently empty.");
+        return;
+    }
+    let output = "Your basket currently contains:\n";
+    basket.forEach((fruit, index) => {
+        output += `${index + 1}. ${fruit}\n`;
+    });
+    alert(output);
+}
+//addTasks()
+function addFruit() {
+    let addFruit = prompt("Please enter what fruit you would like to add to the basket.");
+    addFruit = addFruit.trim().toLowerCase();
 
-    while (app_running) {
+    if(validFruits.includes(addFruit)) {
+        basket.push(addFruit);
+        alert("Thanks for adding to the basket!");       
+    }
+    else {
+        alert("That's not a valid fruit. Please enter a valid fruit.");
+    }
+}
+//removeTasks()
+function removeFruit() {
+    if(basket.length === 0) {
+        alert("Your basket is currently empty. There are no fruits to remove.");
+        return;
+    }
+    let output = "Select a fruit to remove:\n";
+    basket.forEach((fruit, index) => {
+        output += `${index + 1}. ${fruit}\n`;
+    });
+
+    let removeFruit = Number(prompt(`${output}\nPlease enter the number of the fruit you would like to remove.`)) - 1;
+
+    if(removeFruit >= 0 && removeFruit < basket.length) {
+        let removed = basket.splice(removeFruit, 1);
+        alert(`${removed} was successfully removed from the basket.`);
+    }
+    else {
+        alert("Invalid number. Please enter an existing number from the list.");
+    }
+}
+
+//main runs the loop 
+function showMenu() {
+    let appRunning = true;
+
+    while(appRunning) {
         let option = Number(prompt(choice));
-        switch (option) {
+
+        switch(option) {
             case 1:
-                if(basket.length === 0) {
-                    alert("Your basket is currently empty.");
-                    break;
-                }
-
-                output = "Your basket currently contains:\n"
-                for (let i = 0; i < basket.length; i++) {
-                    let fruit = basket[i];
-
-                    output += `${i + 1}. ${fruit}\n`;
-                }
-                alert(output);
+                viewBasket();
                 break;
-
+            
             case 2:
-                let addFruit = prompt("Please enter what fruit you would like to add to the basket.");
-                addFruit = addFruit.trim().toLowerCase();
-
-                if(validFruits.includes(addFruit)) {
-                    basket.push(addFruit);
-                    alert("Thanks for adding to the basket!");
-                }
-                else {
-                    alert("That's not a valid Fruit. Please enter a valid fruit.")
-                }
+                addFruit();
                 break;
-
+            
             case 3:
-                if(basket.length === 0) {
-                    alert("Your basket is currently empty. There are no fruits to remove.");
-                    break;
-                }
-                
-                output = "Select a fruit to remove:\n";
-                for(let i = 0; i < basket.length; i++) {
-                    output += `${i + 1}. ${basket[i]}\n`;
-                }
-                let removeFruit = Number(prompt(`${output}\n Please enter the number of the fruit you would like to remove from the basket.`)) - 1;
-                
-                if (removeFruit >= 0 && removeFruit < basket.length) {
-                    let remove = basket.splice(removeFruit, 1);
-                    alert(`${remove} was successfully removed from the basket.`);
-                }
-                else {
-                    alert("Invalid number. Please enter an existing number from the list.")
-                }
+                removeFruit();
                 break;
 
-            case 4: 
+            case 4:
                 alert("You are now exiting the program.");
-                app_running = false;
+                appRunning = false;
                 break;
-
+            
             default:
                 alert("Sorry, I can't find this option.");
         }
     }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("Menu").addEventListener('click', showMenu);
 });
+
